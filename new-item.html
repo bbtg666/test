@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<input type="text" id="new-item">
+	<button id="add">Add</button>
+	<br><button id="home">Home</button>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+		var url = 'http://localhost:9081/cc/';
+		var input = document.getElementById('new-item');
+		var btn = document.getElementById('add');
+		btn.addEventListener('click', function () {
+			axios.post(url, {
+				content: input.value
+		}).then(function (res) {
+				alert('Đã thêm ' + res.data.content);
+				input.value = '';
+			});
+		})
+		document.getElementById('home').addEventListener('click', function () {
+			window.location.href = '/';
+		})
+
+	</script>
+</body>
+</html>

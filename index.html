@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<button id="cc">New Item</button>
+
+	<ul id="todo-list">	</ul>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+		var url = 'http://localhost:9081/cc/';
+		var id;
+		axios.get(url).then(function (res) {
+			var items = res.data;
+			render(items);
+			setEvenEdit();
+		})
+		
+		document.getElementById('cc').addEventListener('click', function (){
+			window.location.href = '/new-item.html';
+		});
+		
+		function render(items) {
+			var list = document.getElementById('todo-list');
+			var content = items.map(function (a) {
+			return '<li class="cc">' + a.content + ' <button data-id='+ a.id +'>Edit</button></li>'; 
+			});
+			list.innerHTML = content.join('');
+		};
+		function setEvenEdit() {
+			for(var btn of document.getElementsByTagName('ul')[0].getElementsByTagName('button')){
+				btn.addEventListener('click', Edit)
+			}
+		}
+		function Edit(e) {
+			 window.location.href = '/edit.html#'+ e.target.dataset.id;
+		}
+
+	</script>
+</body>
+</html>
